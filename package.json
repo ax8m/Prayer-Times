@@ -1,0 +1,24 @@
+{
+  "name": "prayer-times",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ax8m/Prayer-Times.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ax8m/Prayer-Times/issues"
+  },
+  "homepage": "https://github.com/ax8m/Prayer-Times#readme",
+  "dependencies": {
+    "axios": "^1.2.3",
+    "moment": "^2.29.4",
+    "uniq": "^1.0.1"
+  }
+}
