@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="demo.js"></script>
+    <!-- <script src="demo.js"></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Prayer Times API</title>
 </head>
 <style>
     body {
@@ -21,6 +23,8 @@
         font-family: 'Reem Kufi', sans-serif;
         font-size: 15px;
         color: #44E3D3;
+        /* display: flex;
+        flex-flow: row wrap; */
     }
 
     #background_opacity {
@@ -29,6 +33,7 @@
         background-color: #000B0D;
         opacity: 0.74;
         position: absolute;
+
     }
 
 
@@ -48,7 +53,7 @@
         color: #3CA6A6;
     }
 
-    #city {
+    #city-name {
         padding: 3px 30px;
         font-weight: bold;
         border: none;
@@ -97,7 +102,7 @@
         margin-right: 30px;
     }
 
-    #drop_down {
+    #cities {
         width: 100px;
         height: 20px;
         text-align: center;
@@ -114,19 +119,20 @@
 
 
         <div id="city_date">
-            <h1 id="city">الرياض</h1>
+            <h1 id="city-name">الرياض</h1>
 
             <div id="date">
-                <h4>Tuesday -24 Jan 2023</h4>
-                <h4>الثلاثاء-02 رجب 1444</h4>
+                <h4>- - -</h4>
+                <h4>- - -</h4>
             </div>
 
             <div>
-                <select name="" id="drop_down">
-                    <option value="">اختار المدينة</option>
-                    <option value="">مكة</option>
-                    <option value="">المدينة</option>
-                    <option value="">جدة</option>
+                <select name="" id="cities" onchange="getcity()">
+                    <option value="none" disabled selected>اختار المدينة</option>
+                    <option value="Riyadh">الرياض</option>
+                    <option value="Makkah">مكة المكرمة</option>
+                    <option value="Medina">المدينة المنورة</option>
+                    <option value="Jeddah">جدة</option>
                 </select>
             </div>
         </div>
@@ -135,41 +141,41 @@
             <div class="pray">
                 <img src="image/icons8-moon-64 (1).png" alt="" srcset="">
                 <h1 class="nameOfPrayer">الفجر</h1>
-                <h1>05:50</h1>
+                <h1 id="fajr-athan">--</h1>
             </div>
 
             <div class="pray">
                 <img src="image/icons8-weather-64.png" alt="" srcset="">
                 <h1 class="nameOfPrayer">الشروق</h1>
-                <h1>07:50</h1>
+                <h1 id="sunrise-athan">--</h1>
 
             </div>
 
             <div class="pray">
                 <img src="image/icons8-solar-64.png" alt="" srcset="">
                 <h1 class="nameOfPrayer">الظهر</h1>
-                <h1>05:50</h1>
+                <h1 id="Dhuhr-athan">--</h1>
 
             </div>
 
             <div class="pray">
                 <img src="image/icons8-cloud-64.png" alt="" srcset="">
                 <h1 class="nameOfPrayer">العصر</h1>
-                <h1>05:50</h1>
+                <h1 id="Asr-athan">--</h1>
 
             </div>
 
             <div class="pray">
                 <img src="image/icons8-dusk-64.png" alt="" srcset="">
                 <h1 class="nameOfPrayer">المغرب</h1>
-                <h1>05:50</h1>
+                <h1 id="Maghrib-athan">--</h1>
 
             </div>
 
             <div class="pray">
                 <img src="image/icons8-moon-64.png" alt="" srcset="">
                 <h1 class="nameOfPrayer">العشاء:</h1>
-                <h1>05:50</h1>
+                <h1 id="Isha-athan">--</h1>
 
             </div>
 
@@ -177,5 +183,98 @@
 
     </div>
 </body>
+
+<script>
+
+    function changeTime(athanName, pray) {
+        document.getElementById(`${athanName}`).innerHTML = pray
+    }
+
+
+    function GetDate() {
+        axios.get('http://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=Saudi%20Arabi&method=8')
+            .then((DH) => {
+                // Date of hijri calendar
+                let dateHijri = DH.data.data.date.hijri
+                let dayInHijri = dateHijri.day
+                let weehdayInHijri = dateHijri.weekday.ar
+                let monthInHijri = dateHijri.month.ar
+                let yearInHijri = dateHijri.year
+                // console.log(`${weehdayInHijri} - ${dayInHijri} ${monthInHijri} ${yearInHijri}`)
+                let formatDateHIjri = `${weehdayInHijri} - ${dayInHijri} ${monthInHijri} ${yearInHijri}`
+
+                // Date of gergorian calendar
+                let dateGre = DH.data.data.date.gregorian
+                let dayInGre = dateGre.day
+                let weehdayInGre = dateGre.weekday.en
+                let monthInGre = dateGre.month.en
+                let yearInGre = dateGre.year
+                // console.log(`${weehdayInGre} - ${dayInGre} ${monthInGre} ${yearInGre}`)
+                let formatDateGre = `${weehdayInGre} - ${dayInGre} ${monthInGre} ${yearInGre}`
+
+                document.getElementById("date").innerHTML = `
+                <h4>${formatDateGre}</h4>
+                <h4>${formatDateHIjri}</h4>
+                `
+            })
+    }
+
+
+    function getPrayerTimesOfCity(city) {
+
+        // axios.get('http://api.aladhan.com/v1/timingsByCity?city=Makkah&country=Saudi%20Arabi&method=8')
+        axios.get('http://api.aladhan.com/v1/timingsByCity', {
+            params: {
+                country: "Saudi Arabi",
+                city: city,
+                methods: "8",
+
+            }
+        })
+            .then((pray) => {
+                let timings = pray.data.data.timings
+
+                changeTime('fajr-athan', timings.Fajr)
+                changeTime('sunrise-athan', timings.Sunrise)
+                changeTime('Dhuhr-athan', timings.Dhuhr)
+                changeTime('Asr-athan', timings.Asr)
+                changeTime('Maghrib-athan', timings.Maghrib)
+                changeTime('Isha-athan', timings.Isha)
+
+
+            })
+    }
+
+    function getcity() {
+        let city = document.getElementById("cities").value
+
+        switch (city) {
+            case "Makkah":
+                document.getElementById("city-name").innerHTML = "مكة المكرمة"
+                break;
+
+            case "Medina":
+                document.getElementById("city-name").innerHTML = "المدينة المنورة"
+                break;
+
+            case "Jeddah":
+                document.getElementById("city-name").innerHTML = "جدة"
+                break;
+            case "Riyadh":
+                document.getElementById("city-name").innerHTML = "الرياض"
+                break;
+        }
+        // let name = city.textContent
+
+        getPrayerTimesOfCity(city)
+
+    }
+
+
+
+    GetDate()
+    getPrayerTimesOfCity("Riyad")
+
+</script>
 
 </html>
