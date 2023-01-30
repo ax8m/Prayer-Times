@@ -9,108 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <link rel="stylesheet" href="style.css">
     <title>Prayer Times API</title>
 </head>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url("image/mosque-g142faa449_1920.jpg");
-        background-repeat: no-repeat, repeat;
-        background-size: cover;
-        font-family: 'Reem Kufi', sans-serif;
-        font-size: 15px;
-        color: #44E3D3;
-        /* display: flex;
-        flex-flow: row wrap; */
-    }
-
-    #background_opacity {
-        width: 100%;
-        height: 100vh;
-        background-color: #000B0D;
-        opacity: 0.74;
-        position: absolute;
-
-    }
-
-
-    #main-div {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-
-    #city_date {
-        width: 40%;
-        height: auto;
-        order: 1;
-        text-align: center;
-        color: #3CA6A6;
-    }
-
-    #city-name {
-        padding: 3px 30px;
-        font-weight: bold;
-        border: none;
-        text-align: center;
-        font-size: 60px;
-    }
-
-    #date {
-        font-size: 25px;
-        font-weight: 900;
-    }
-
-    #prayer {
-        direction: rtl;
-        padding: 0;
-        width: 50%;
-
-    }
-
-    .pray {
-        width: 300px;
-        display: flex;
-        background-color: #00635A;
-        justify-content: center;
-        align-items: center;
-        margin: 0px auto 3px;
-        border: solid black 0.5px;
-        border-radius: 50px;
-        box-shadow: 2px 0.5px 5px rgba(39, 37, 37, 0.3);
-    }
-
-
-    .pray img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .pray div {
-        display: flex;
-        justify-content: space-between;
-        margin-right: 20px;
-    }
-
-    .nameOfPrayer {
-        margin-left: 20px;
-        margin-right: 30px;
-    }
-
-    #cities {
-        width: 100px;
-        height: 20px;
-        text-align: center;
-        background-color: #154B52;
-        color: white;
-        border-radius: 100px;
-    }
-</style>
 
 <body>
     <div id="background_opacity"></div>
@@ -129,10 +31,10 @@
             <div>
                 <select name="" id="cities" onchange="getcity()">
                     <option value="none" disabled selected>اختار المدينة</option>
-                    <option value="Riyadh">الرياض</option>
+                    <!-- <option value="Riyadh">الرياض</option>
                     <option value="Makkah">مكة المكرمة</option>
                     <option value="Medina">المدينة المنورة</option>
-                    <option value="Jeddah">جدة</option>
+                    <option value="Jeddah">جدة</option> -->
                 </select>
             </div>
         </div>
@@ -174,7 +76,7 @@
 
             <div class="pray">
                 <img src="image/icons8-moon-64.png" alt="" srcset="">
-                <h1 class="nameOfPrayer">العشاء:</h1>
+                <h1 class="nameOfPrayer">العشاء</h1>
                 <h1 id="Isha-athan">--</h1>
 
             </div>
@@ -184,7 +86,10 @@
     </div>
 </body>
 
-<script>
+<script src="./node_modules/axios/dist/axios.min.js"></script>
+<script src="demo.js"></script>
+
+<!-- <script>
 
     function changeTime(athanName, pray) {
         document.getElementById(`${athanName}`).innerHTML = pray
@@ -275,6 +180,6 @@
     GetDate()
     getPrayerTimesOfCity("Riyad")
 
-</script>
+</script> -->
 
 </html>
